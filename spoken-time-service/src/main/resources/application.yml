@@ -1,0 +1,12 @@
+spring:
+  redis:
+    host: ${SPRING_REDIS_HOST:localhost}  # fallback to localhost if env not set
+    port: ${SPRING_REDIS_PORT:6379}
+
+  cache:
+    type: caffeine  # default cache type for Spring cache abstraction
+
+logging:
+  level:
+    root: INFO
+    com.smartbear.time.spokentime: DEBUG
