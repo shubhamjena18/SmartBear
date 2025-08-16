@@ -10,3 +10,12 @@ logging:
   level:
     root: INFO
     com.smartbear.time.spokentime: DEBUG
+
+resilience4j.circuitbreaker:
+  instances:
+    timeServiceRedis:
+      registerHealthIndicator: true
+      slidingWindowSize: 5
+      minimumNumberOfCalls: 3
+      failureRateThreshold: 50
+      waitDurationInOpenState: 5s

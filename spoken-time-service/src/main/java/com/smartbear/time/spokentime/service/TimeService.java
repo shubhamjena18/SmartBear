@@ -45,6 +45,8 @@ public class TimeService {
     }
 
     private String convertToBritishTime(int hour, int minute) {
+        if (hour == 0 && minute == 0) return "midnight";
+        if (hour == 12 && minute == 0) return "noon";
         if (minute == 0) return hour + " o'clock";
         if (minute == 15) return "quarter past " + hour;
         if (minute == 30) return "half past " + hour;

@@ -17,7 +17,19 @@ public class TimeController {
     }
 
     @GetMapping("/v1/britishtime")
-    public Mono<String> getBritishTime(@RequestParam int hour, @RequestParam int minute) {
-        return timeService.getBritishTime(hour, minute);
+    public Mono<String> getBritishTime(@RequestParam String time) {
+        try {
+            String[] parts = time.split(":");
+            if (parts.length != 2) {
+                return Mono.error(new IllegalArgumentException("Invalid time format. Use HH:mm"));
+            }
+
+            int hour = Integer.parseInt(parts[0]);
+            int minute = Integer.parseInt(parts[1]);
+
+            return timeService.getBritishTime(hour, minute);
+        } catch (NumberFormatException e) {
+            return Mono.error(new IllegalArgumentException("Invalid numeric values in time. Use HH:mm"));
+        }
     }
 }
